@@ -32,7 +32,7 @@ const Calculator = () => {
   const handleEquals = () => {
     try {
       const result = evaluate(
-        expression.replace(/×/g, "*").replace(/÷/g, "/")
+        expression.replace(/×/g, "*").replace(/÷/g, "/").replace(/\^/g, "^")
       );
       const resultStr = Number(result).toString();
       setHistory([...history, `${expression} = ${resultStr}`]);
@@ -77,6 +77,34 @@ const Calculator = () => {
         case "+/-":
           result = currentValue * -1;
           break;
+        case "sin":
+          result = Math.sin(currentValue);
+          break;
+        case "cos":
+          result = Math.cos(currentValue);
+          break;
+        case "tan":
+          result = Math.tan(currentValue);
+          break;
+        case "log":
+          result = Math.log10(currentValue);
+          break;
+        case "ln":
+          result = Math.log(currentValue);
+          break;
+        case "exp":
+          result = Math.exp(currentValue);
+          break;
+        case "π":
+          result = Math.PI;
+          setDisplay(result.toString());
+          setExpression(result.toString());
+          return;
+        case "e":
+          result = Math.E;
+          setDisplay(result.toString());
+          setExpression(result.toString());
+          return;
         default:
           return;
       }
@@ -88,6 +116,14 @@ const Calculator = () => {
     } catch (error) {
       setDisplay("Error");
       setExpression("");
+    }
+  };
+
+  const handlePower = () => {
+    const lastChar = expression.slice(-1);
+    if (!["+", "-", "×", "÷", "*", "/", "^"].includes(lastChar)) {
+      setExpression(expression + "^");
+      setDisplay(display + "^");
     }
   };
 
@@ -122,6 +158,18 @@ const Calculator = () => {
     { label: "=", type: "equals", action: handleEquals },
   ];
 
+  const scientificButtons = [
+    { label: "sin", action: () => handleFunction("sin") },
+    { label: "cos", action: () => handleFunction("cos") },
+    { label: "tan", action: () => handleFunction("tan") },
+    { label: "log", action: () => handleFunction("log") },
+    { label: "ln", action: () => handleFunction("ln") },
+    { label: "exp", action: () => handleFunction("exp") },
+    { label: "π", action: () => handleFunction("π") },
+    { label: "e", action: () => handleFunction("e") },
+    { label: "x^y", action: handlePower },
+  ];
+
   const extraButtons = [
     { label: "+/-", action: () => handleFunction("+/-") },
     { label: "x²", action: () => handleFunction("x²") },
@@ -140,6 +188,19 @@ const Calculator = () => {
             <div className="text-foreground text-right text-5xl font-light tracking-tight overflow-x-auto">
               {display}
             </div>
+          </div>
+
+          {/* Scientific functions */}
+          <div className="grid grid-cols-3 gap-2 p-4 pb-2 bg-card/30">
+            {scientificButtons.map((btn) => (
+              <Button
+                key={btn.label}
+                onClick={btn.action}
+                className="h-10 bg-[hsl(var(--calc-function))] hover:bg-[hsl(var(--calc-function))]/80 text-foreground font-medium text-sm rounded-xl transition-all active:scale-95"
+              >
+                {btn.label}
+              </Button>
+            ))}
           </div>
 
           {/* Extra functions */}

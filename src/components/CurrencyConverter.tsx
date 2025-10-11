@@ -41,6 +41,7 @@ const CurrencyConverter = () => {
     SGD: 1.34,
     AED: 3.67,
     MAD: 10.12,
+    XOF: 605.5,
   });
 
   const currencies = [
@@ -61,6 +62,7 @@ const CurrencyConverter = () => {
     { code: "SGD", name: "Dollar Singapourien", symbol: "S$" },
     { code: "AED", name: "Dirham UAE", symbol: "د.إ" },
     { code: "MAD", name: "Dirham Marocain", symbol: "DH" },
+    { code: "XOF", name: "Franc CFA", symbol: "CFA" },
   ];
 
   useEffect(() => {

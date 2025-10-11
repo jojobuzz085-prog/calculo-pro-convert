@@ -1,12 +1,17 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Calculator from "@/components/Calculator";
+import CurrencyConverter from "@/components/CurrencyConverter";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Calculatrice Pro</h1>
+          <p className="text-muted-foreground">Ultra-optimisée et professionnelle</p>
+        </div>
+        <Calculator />
       </div>
+      <CurrencyConverter />
     </div>
   );
 };
